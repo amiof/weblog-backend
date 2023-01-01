@@ -9,6 +9,7 @@ const userschema = new Schema({
   moblie: { type: Number },
   password: { type: String, require: true },
   role: { type: [String], default: "USER" },
+  token: { type: String },
 });
 
 module.exports = {

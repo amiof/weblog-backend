@@ -1,7 +1,7 @@
 const createHttpError = require("http-errors");
 const httpStatus = require("http-status");
 const { userModel } = require("../../module/userModel");
-const { createPassHashed } = require("../../utiles/utiles");
+const { createPassHashed, createToken } = require("../../utiles/utiles");
 const { Controller } = require("../controller");
 
 class userController extends Controller {
@@ -33,9 +33,17 @@ class userController extends Controller {
         throw createHttpError.Unauthorized("this user are existed");
       } else {
         const passhashed = createPassHashed(password);
-        await userModel.create({ username, email, password: passhashed });
-        return res.status(httpStatus.CREATED).json({
-          status: httpStatus.CREATED,
+        const token = createToken(username, "1d");
+        await userModel.create({
+          username,
+          email,
+          password: passhashed,
+          token,
+        });
+        console.log(token);
+        return res.status(status).json({
+          status: 201,
+          token,
           username,
           email,
           password: passhashed,

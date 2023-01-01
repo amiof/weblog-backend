@@ -6,7 +6,7 @@ class adminController extends Controller {
   randomkeyGenrator(req, res, next) {
     try {
       const privateKey = secretKeyGenerator();
-      return res.status(httpStatus.CREATED).json({
+      return res.status(201).json({
         success: true,
         privateKey,
       });

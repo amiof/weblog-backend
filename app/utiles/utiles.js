@@ -10,7 +10,7 @@ function createPassHashed(pass) {
   return passHashed;
 }
 function createToken(payload, expire) {
-  return jwt.sign(payload, PRIVATEKAY, { expiresIn: expire });
+  return jwt.sign({ payload }, PRIVATEKAY, { expiresIn: expire });
 }
 
 function secretKeyGenerator() {
@@ -26,6 +26,7 @@ function secretKeyGenerator() {
   );
   return encryptData;
 }
+
 module.exports = {
   createPassHashed,
   createToken,

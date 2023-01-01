@@ -90,7 +90,7 @@ module.exports = class application {
     });
     app.use((error, req, res, next) => {
       const serverError = createHttpError.InternalServerError;
-      const statusCode = error.status || serverError.status;
+      const statusCode = error.status || serverError.status || 500;
       const message = error.message || serverError.message;
       return res.status(statusCode).json({
         statusCode,
