@@ -41,7 +41,7 @@ class userController extends Controller {
           token,
         });
         console.log(token);
-        return res.status(status).json({
+        return res.status("201").json({
           status: 201,
           token,
           username,

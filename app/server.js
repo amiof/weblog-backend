@@ -8,7 +8,7 @@ const morgan = require("morgan");
 const path = require("path");
 const { allroutes } = require("./routes/allroutes");
 const createHttpError = require("http-errors");
-
+const cors = require("cors")
 module.exports = class application {
   constructor(port, url) {
     this.connectMongoDB(url);
@@ -22,6 +22,7 @@ module.exports = class application {
     app.use(express.urlencoded({ extended: true }));
     app.use(express.json());
     app.use(morgan("dev"));
+    app.use(cors())
     app.use(express.static(path.join(__dirname, "..", "pulblic")));
     app.use(
       "/api-doc",
