@@ -1,9 +1,9 @@
 const createHttpError = require("http-errors");
 const httpStatus = require("http-status");
-const { userModel } = require("../../module/userModel");
+const { userModel } = require("../../models//userModel");
 const { createPassHashed, createToken } = require("../../utiles/utiles");
 const { Controller } = require("../controller");
-const bcrypt = require("bcrypt")
+const bcrypt = require("bcrypt");
 
 class userController extends Controller {
   getallusers(req, res, next) {
@@ -17,29 +17,27 @@ class userController extends Controller {
   getUserById(req, res, next) {
     try {
       return console.log(req);
-    } catch (error) { }
+    } catch (error) {}
   }
   async LoginUser(req, res, next) {
     try {
-      const { username, password } = req.body
-      const findUser = await userModel.find({ username })
-      if (!findUser) throw createHttpError.Unauthorized("this user or password not available")
-      const passcheck = await bcrypt.compare(password, findUser[0].password)
-      if (!passcheck) throw createHttpError.Unauthorized("this user or password not available")
-      const token = createToken(username, "1d")
-      const tokenUpdate = await this.updateDB({ _id: findUser[0]._id }, { token: token })
-      if (tokenUpdate.modifiedCount == 0) throw createHttpError.Unauthorized("token update dont done")
-
+      const { username, password } = req.body;
+      const findUser = await userModel.find({ username });
+      if (!findUser) throw createHttpError.Unauthorized("this user or password not available");
+      const passcheck = await bcrypt.compare(password, findUser[0].password);
+      if (!passcheck) throw createHttpError.Unauthorized("this user or password not available");
+      const token = createToken(username, "1d");
+      const tokenUpdate = await this.updateDB({ _id: findUser[0]._id }, { token: token });
+      if (tokenUpdate.modifiedCount == 0)
+        throw createHttpError.Unauthorized("token update dont done");
 
       return res.status(201).json({
         status: 201,
         success: true,
         message: "user login successfully and update db token",
         OldToken: findUser[0].token,
-        newToken: token
-
-
-      })
+        newToken: token,
+      });
     } catch (error) {
       next(error);
     }
@@ -80,9 +78,8 @@ class userController extends Controller {
     }
   }
   async updateDB(id, payload) {
-    const user = await userModel.updateOne(id, { $set: payload })
-    return user
-
+    const user = await userModel.updateOne(id, { $set: payload });
+    return user;
   }
 }
 
