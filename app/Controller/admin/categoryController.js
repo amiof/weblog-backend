@@ -39,8 +39,18 @@ class categoryController extends Controller {
       next(error);
     }
   }
-  updateCategory(req, res, next) {
+  async updateCategory(req, res, next) {
     try {
+      const { categoryName, oldId: _id } = req.body;
+      const category = await categoryModel.findOne({ _id });
+      if ((category.length = 0)) throw createHttpError.BadRequest("your id is not valid ");
+      const rename = await categoryModel.updateOne({ _id }, { $set: { categoryName } });
+      console.log(rename);
+      return res.status(201).json({
+        status: 201,
+        success: true,
+        message: "your category name is changed ",
+      });
     } catch (error) {
       next(error);
     }
