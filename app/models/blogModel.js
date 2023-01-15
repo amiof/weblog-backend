@@ -2,7 +2,7 @@ const { default: mongoose, mongo } = require("mongoose");
 
 const blogSchima = new mongoose.Schema(
   {
-    auteur: { type: mongoose.Types.ObjectId, required: true },
+    auteur: { type: String, required: true },
     title: { type: String, require: true },
     description: { type: String },
     image: { type: String, require: true },

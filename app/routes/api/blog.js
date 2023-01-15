@@ -8,7 +8,7 @@ router.get("/allBlogs", blogController.getAllBlogs);
 router.post("/blogById", blogController.getBlogById);
 router.post("/blogFav", blogController.getMyBookmarkblogs);
 router.post("/blogsLiked", blogController.getmyLikedBlogs);
-
+router.post("/addBlog", blogController.addBlog);
 module.exports = {
   blogRouters: router,
 };

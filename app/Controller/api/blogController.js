@@ -4,8 +4,11 @@ const { userModel } = require("../../models/userModel");
 const { Controller } = require("../controller");
 
 class blogController extends Controller {
-  addBlog(req, res, next) {
+  async addBlog(req, res, next) {
     try {
+      const { auteur, title, image, category, mainText } = req.body;
+      const createBlog = await blogModel.create({ auteur, title, image, category, mainText });
+      console.log(createBlog);
     } catch (error) {
       next(error);
     }
