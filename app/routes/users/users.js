@@ -43,9 +43,9 @@ const router = express.Router();
  *            getUserByID:
  *                 type: object
  *                 required:
- *                    - id
+ *                    - Id
  *                 properties:
- *                     id :
+ *                     Id :
  *                       type: string
  *                       description: the object id for user
  *
@@ -138,9 +138,6 @@ router.post("/signup", userController.signup);
  *                   description: unauthorized
  *                 500:
  *                   description: internal server error
- *
- *
- *
  *
  *
  */

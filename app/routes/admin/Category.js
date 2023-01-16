@@ -17,6 +17,14 @@ const router = app.Router();
  *                 oldId:
  *                      type: string
  *                      description: the object id for select category
+ *         addCategory:
+ *               type: object
+ *               required:
+ *                 - categoryName
+ *               properties:
+ *                 categoryName:
+ *                      type: string
+ *                      description: the category name for add
  *
  *
  *
@@ -77,6 +85,12 @@ router.get("/getCategory/:id", categoryController.getCategoryById);
  *        tags: ["category"]
  *        summary: this api add a category
  *        description: this api add a category
+ *        requestBody:
+ *             required: true
+ *             content:
+ *                 application/x-www-form-urlencoded:
+ *                   schema:
+ *                      $ref: "#/components/schemas/addCategory"
  *        responses:
  *               201:
  *                   description: success
@@ -94,11 +108,18 @@ router.post("/addCategory", categoryController.addCategory);
 
 /**
  * @swagger
- *   /category/removeCategory:
+ *   /category/removeCategory/{id}:
  *     delete:
  *        tags: ["category"]
  *        summary: this api add a category
  *        description: this api add a category
+ *        parameters:
+ *             -  in : path
+ *                name : id
+ *                description: the id for category for remove
+ *                required: true
+ *                schema:
+ *                type: string
  *        responses:
  *               201:
  *                   description: success
@@ -112,7 +133,7 @@ router.post("/addCategory", categoryController.addCategory);
  *
  * */
 
-router.delete("/removeCategory", categoryController.removeCategory);
+router.delete("/removeCategory/:id", categoryController.removeCategory);
 /**
  * @swagger
  *   /category/updateCategory:

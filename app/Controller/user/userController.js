@@ -6,16 +6,30 @@ const { Controller } = require("../controller");
 const bcrypt = require("bcrypt");
 
 class userController extends Controller {
-  getallusers(req, res, next) {
+  async getallusers(req, res, next) {
     try {
-      return res.send("user not found");
+      const users = await userModel.find({});
+
+      return res.status(201).json({
+        status: 201,
+        success: true,
+        users,
+      });
     } catch (error) {
       next(error);
     }
   }
 
-  getUserById(req, res, next) {
+  async getUserById(req, res, next) {
     try {
+      const { Id } = req.body;
+      const users = await userModel.find({ _id: Id });
+      if (users.length == 0) throw createHttpError.BadRequest("user not available");
+      return res.status(201).json({
+        status: 201,
+        success: true,
+        users,
+      });
       return console.log(req);
     } catch (error) {}
   }

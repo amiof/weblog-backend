@@ -7,7 +7,7 @@ const swaggerdoc = swaggerDoc({
       title: "weblog doc",
       version: "1.0.0",
       license: {
-        name: "MIT",
+        name: "BSD",
       },
       contact: {
         name: "amir-meghrazi",

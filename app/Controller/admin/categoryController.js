@@ -49,8 +49,18 @@ class categoryController extends Controller {
       next(error);
     }
   }
-  removeCategory(req, res, next) {
+  async removeCategory(req, res, next) {
     try {
+      const categoryId = req.path;
+      const _id = categoryId.slice(16);
+      const category = await categoryModel.deleteOne({ _id });
+      if (category.deletedCount == 0) throw createHttpError.BadRequest("category not delete");
+      return res.status(201).json({
+        status: 201,
+        success: true,
+        message: " the category deleted",
+        category,
+      });
     } catch (error) {
       next(error);
     }
