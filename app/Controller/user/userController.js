@@ -42,7 +42,7 @@ class userController extends Controller {
       next(error);
     }
   }
-  async signin(req, res, next) {
+  async signup(req, res, next) {
     try {
       const { username, email, password } = req.body;
       const userfind = await userModel.find({ username });

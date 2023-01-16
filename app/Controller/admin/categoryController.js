@@ -33,6 +33,22 @@ class categoryController extends Controller {
       next(error);
     }
   }
+  async getCategoryById(req, res, next) {
+    try {
+      const id = req.path;
+      const _id = id.slice(13);
+      console.log(_id);
+      const category = await categoryModel.findOne({ _id });
+      if ((category.length = 0)) throw createHttpError.BadRequest("your id is not available");
+      return res.status(201).json({
+        status: 201,
+        success: true,
+        category,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
   removeCategory(req, res, next) {
     try {
     } catch (error) {
